@@ -1,14 +1,14 @@
 package main
 
 import (
-	"adapters/primary/middlewares"
+	"app/adapters/primary/middlewares"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/adaptor"
 )
 
-const ServiceName = "Go Hexagonal Domain Driven Design"
+const ServiceName = "Go Hexagonal Architecture"
 
 func main() {
 	app := fiber.New()

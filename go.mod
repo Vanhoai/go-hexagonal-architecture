@@ -1,4 +1,4 @@
-module go-hexagonal-domain-driven-design
+module go-hexagonal-architecture
 
 go 1.25.1
 
@@ -18,7 +18,7 @@ require (
 )
 
 replace (
-	go-hexagonal-domain-driven-design/adapters => ./adapters
-	go-hexagonal-domain-driven-design/core => ./core
-	go-hexagonal-domain-driven-design/domain => ./domain
+	go-hexagonal-architecture/adapters => ./adapters
+	go-hexagonal-architecture/core => ./core
+	go-hexagonal-architecture/domain => ./domain
 )

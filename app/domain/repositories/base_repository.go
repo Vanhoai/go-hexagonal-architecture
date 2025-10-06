@@ -1,6 +1,8 @@
 package repositories
 
-import "context"
+import (
+	"context"
+)
 
 // Entity constraint - all entities must have these methods
 type Entity interface {

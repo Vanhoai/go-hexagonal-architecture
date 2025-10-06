@@ -2,7 +2,6 @@ go 1.25.1
 
 use (
 	.
-	./adapters
 	./core
-	./domain
+	./app
 )
