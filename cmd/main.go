@@ -12,7 +12,9 @@ const ServiceName = "Go Hexagonal Architecture"
 
 func main() {
 	app := fiber.New()
-	app.Use(adaptor.HTTPMiddleware(middlewares.LogMiddleware))
+
+	// Add CORS middleware with default configuration
+	app.Use(adaptor.HTTPMiddleware(middlewares.CorsMiddleware(nil)))
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Welcome to " + ServiceName)
