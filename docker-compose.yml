@@ -1,0 +1,4 @@
+services:
+  scylla-database:
+    image: scylladb/scylla:2025.2
+    container_name: scylla-database

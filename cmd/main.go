@@ -36,8 +36,55 @@ func (c *Container) Register(name string, provider interface{}) error {
 	}
 
 	c.providers[name] = providerValue
-	fmt.Printf("Registered service: %s\n", name)
+	fmt.Printf("Registered provider for: %s\n", name)
 	return nil
+}
+
+// Register singleton service with auto contructor
+func (c *Container) SingletonV2(provider interface{}) error {
+	// Retrieve name of struct return type
+	providerValue := reflect.ValueOf(provider)
+	if providerValue.Kind() != reflect.Struct {
+		return fmt.Errorf("provider must be a struct")
+	}
+
+	providerType := providerValue.Type() // scylla.AccountRepositoryImpl
+	name := providerType.Name()          // AccountRepositoryImpl
+
+	// Replace "Impl" suffix to get interface name
+	if len(name) > 4 && name[len(name)-4:] == "Impl" {
+		name = name[:len(name)-4]
+	}
+
+	return c.Register(name, func() interface{} {
+		instance := reflect.New(providerType).Elem()
+		fmt.Printf("Number of fields in %s: %d\n", providerType.Name(), providerType.NumField())
+
+		// Auto-inject dependencies
+		for i := 0; i < providerType.NumField(); i++ {
+			field := providerType.Field(i)
+			injectTag := field.Tag.Get("inject")
+			fmt.Printf("Field: %s, Inject Tag: %s\n", field.Name, injectTag)
+
+			if injectTag == "" {
+				fmt.Println("No inject tag, skipping...")
+				continue
+			}
+
+			// service, err := c.Get(injectTag)
+			// if err != nil {
+			// 	panic(fmt.Sprintf("failed to inject dependency for field %s: %v", field.Name, err))
+			// }
+
+			// if instance.Field(i).Kind() != reflect.Ptr {
+			// 	panic(fmt.Sprintf("field %s is not a pointer", field.Name))
+			// }
+
+			// instance.Field(i).Set(reflect.ValueOf(service))
+		}
+
+		return instance.Addr().Interface()
+	})
 }
 
 // Register singleton service
@@ -62,6 +109,20 @@ func (c *Container) Singleton(provider interface{}) error {
 	}
 
 	return c.Register(name, provider)
+}
+
+func (c *Container) RetrieveNameFromType(class interface{}) (string, error) {
+	classType := reflect.TypeOf(class)
+	if classType.Kind() != reflect.Struct {
+		return "", fmt.Errorf("class must be a struct")
+	}
+
+	name := classType.Name()
+	if len(name) > 4 && name[len(name)-4:] == "Impl" {
+		name = name[:len(name)-4]
+	}
+
+	return name, nil
 }
 
 // Get retrieve a service by name, instantiating it if necessary
@@ -105,6 +166,7 @@ func (c *Container) Get(name string) (interface{}, error) {
 	}
 
 	c.services[name] = service
+	fmt.Println("Instantiated service:", name)
 	return service, nil
 }
 
@@ -176,7 +238,20 @@ func (c *Container) Make(target interface{}) error {
 
 func main() {
 	di := CreateNewContainer()
-	di.Singleton(scylla.NewAccountRepository)
+	// Register repositories
+	di.SingletonV2(scylla.AccountRepositoryImpl{})
+	di.SingletonV2(scylla.NotificationRepositoryImpl{})
+
+	di.Get("AccountRepository")
+	di.Get("NotificationRepository")
+
+	// Register services
+	// di.Singleton(services.NewAccountService)
+	// di.Singleton(services.NewAuthService)
+
+	// Register application services
+	// di.Singleton(applications.NewAuthApplicationService)
+	// di.Singleton(applications.NewNotificationApplicationService)
 
 	app := fiber.New()
 	app.Use(adaptor.HTTPMiddleware(middlewares.LogMiddleware))
