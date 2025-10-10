@@ -2,7 +2,7 @@ package scylla
 
 import (
 	"context"
-	"server/domain/repositories"
+	"domain/repositories"
 )
 
 type baseRepositoryImpl[T repositories.Entity] struct{}

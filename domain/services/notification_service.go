@@ -1,6 +1,6 @@
 package services
 
-import "server/domain/repositories"
+import "domain/repositories"
 
 type NotificationService struct {
 	repository repositories.NotificationRepository

@@ -1,11 +1,11 @@
 package main
 
 import (
+	"adapters/primary/middlewares"
+	"adapters/secondary/repositories/scylla"
 	"fmt"
 	"log"
 	"reflect"
-	"server/adapters/primary/middlewares"
-	"server/adapters/secondary/repositories/scylla"
 	"sync"
 
 	"github.com/gofiber/fiber/v2"

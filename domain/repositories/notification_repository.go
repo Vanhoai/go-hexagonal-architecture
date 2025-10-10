@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"server/domain/entities"
+	"domain/entities"
 )
 
 type NotificationRepository interface {

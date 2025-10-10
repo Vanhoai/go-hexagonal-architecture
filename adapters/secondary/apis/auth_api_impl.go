@@ -1,6 +1,6 @@
 package apis
 
-import "server/domain/apis"
+import "domain/apis"
 
 type authApiImpl struct{}
 

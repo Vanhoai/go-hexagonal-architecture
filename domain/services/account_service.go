@@ -1,6 +1,6 @@
 package services
 
-import "server/domain/repositories"
+import "domain/repositories"
 
 type AccountService struct {
 	repository *repositories.AccountRepository

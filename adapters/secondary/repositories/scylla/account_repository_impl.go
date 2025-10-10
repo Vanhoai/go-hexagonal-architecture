@@ -2,8 +2,8 @@ package scylla
 
 import (
 	"context"
-	"server/domain/entities"
-	"server/domain/repositories"
+	"domain/entities"
+	"domain/repositories"
 )
 
 type accountRepositoryImpl struct {

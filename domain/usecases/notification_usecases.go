@@ -1,6 +1,6 @@
 package usecases
 
-import "server/domain/entities"
+import "domain/entities"
 
 // ======================== MANAGE NOTIFICATION ========================
 type ManageNotificationUseCases interface {

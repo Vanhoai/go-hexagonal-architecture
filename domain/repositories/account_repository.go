@@ -2,7 +2,7 @@ package repositories
 
 import (
 	"context"
-	"server/domain/entities"
+	"domain/entities"
 )
 
 type AccountRepository interface {

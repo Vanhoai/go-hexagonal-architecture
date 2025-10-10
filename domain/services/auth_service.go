@@ -1,7 +1,7 @@
 package services
 
 import (
-	"server/domain/apis"
+	"domain/apis"
 )
 
 type AuthService struct {

@@ -1,8 +1,8 @@
 package scylla
 
 import (
-	"server/domain/entities"
-	"server/domain/repositories"
+	"domain/entities"
+	"domain/repositories"
 )
 
 type notificationRepositoryImpl struct {

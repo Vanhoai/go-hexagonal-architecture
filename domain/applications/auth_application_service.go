@@ -1,6 +1,6 @@
 package applications
 
-import "server/domain/services"
+import "domain/services"
 
 type AuthApplicationService struct {
 	authService    *services.AuthService    `inject:"AuthService"`

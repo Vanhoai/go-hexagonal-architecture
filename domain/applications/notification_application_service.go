@@ -1,7 +1,7 @@
 package applications
 
 import (
-	"server/domain/services"
+	"domain/services"
 )
 
 type NotificationApplicationService struct {

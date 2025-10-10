@@ -4,7 +4,7 @@ go 1.25.1
 
 require (
 	github.com/gofiber/fiber/v2 v2.52.9
-	server v0.0.0
+	adapters v0.0.0
 )
 
 require (
@@ -22,5 +22,5 @@ require (
 
 replace (
 	core => ./core
-	server => ./server
+	adapters => ./adapters
 )
